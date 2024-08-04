@@ -16,12 +16,15 @@ const Home = () => {
       // Retrieve the token from session storage
 
       // Make the request to the server with the Authorization header
-      const res = await fetch("http://localhost:5000/api/posts/getPosts", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Ensure 'Bearer ' is followed by the token
-        },
-      });
+      const res = await fetch(
+        "http://localhost:5000/api/products/posts/getPosts",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Ensure 'Bearer ' is followed by the token
+          },
+        }
+      );
 
       if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);

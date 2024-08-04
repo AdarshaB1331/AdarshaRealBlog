@@ -29,14 +29,17 @@ const ContactUs = () => {
       toast.error("You need to log in to send the message.....");
     }
     try {
-      const res = await fetch("http://localhost:5000/api/posts/message", {
-        method: "POST",
-        body: JSON.stringify({ name, email, phoneNumber, message }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        "http://localhost:5000/api/products/posts/message",
+        {
+          method: "POST",
+          body: JSON.stringify({ name, email, phoneNumber, message }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(res);
       if (res.ok) {
         toast.success("Message sent Successfully");

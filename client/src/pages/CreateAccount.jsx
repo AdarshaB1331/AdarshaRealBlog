@@ -23,13 +23,16 @@ const CreateAccount = () => {
 
   const createAccount = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/create-account", {
-        method: "POST",
-        body: JSON.stringify({ name, email, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        "http://localhost:5000/api/users/create-account",
+        {
+          method: "POST",
+          body: JSON.stringify({ name, email, password }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       console.log(res);
       if (res.ok) {
         toast.success("User Created Successfully");
