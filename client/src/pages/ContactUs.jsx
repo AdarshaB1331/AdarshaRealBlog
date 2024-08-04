@@ -130,7 +130,7 @@ const ContactUs = () => {
                     </div>
                     <div className="col-12 col-md-6">
                       <label htmlFor="phone" className="form-label">
-                        Phone Number
+                        Phone Number <span className="text-danger">*</span>
                       </label>
                       <div className="input-group">
                         <span className="input-group-text">

@@ -32,7 +32,10 @@ const CreateBlog = () => {
 
   const createBlog = async () => {
     const token = sessionStorage.getItem("User");
-
+    if (!title || !description || !content || !image) {
+      toast.error("None of the fields can be empty");
+      return;
+    }
     if (!token) {
       toast.error("Unauthorized. Please log in.");
       return;

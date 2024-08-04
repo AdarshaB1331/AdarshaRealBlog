@@ -25,17 +25,30 @@ const Profile = () => {
     <div>
       {token ? (
         <div style={{ textAlign: "center" }}>
-          <h2>Name:</h2>
+          <h2 style={{ marginTop: "30px" }}>Name:</h2>
           <h3>{decoded.name || "Not available"}</h3>
-          <h2>Email:</h2>
+          <h2 style={{ marginTop: "30px" }}>Email:</h2>
           <h3>{decoded.email || "Not available"}</h3>
-          <h2>Your Posts:</h2>
-          <div style={{ marginLeft: "530px" }}>
-            {userPosts.length > 0 ? (
-              userPosts.map((post) => <HalfCard key={post._id} post={post} />)
-            ) : (
-              <p>No posts available</p>
-            )}
+          <h2 style={{ marginTop: "30px" }}>Your Posts:</h2>
+          <div style={{ marginLeft: "230px" }}>
+            <div
+              className="container overflow-hidden"
+              style={{ marginTop: "90px" }}
+            >
+              <div className="row gy-4 gy-xxl-5">
+                {userPosts.length > 0 ? (
+                  userPosts.map((post) => (
+                    <HalfCard
+                      style={{ marginTop: "40px" }}
+                      key={post._id}
+                      post={post}
+                    />
+                  ))
+                ) : (
+                  <p style={{ marginLeft: "-130px" }}>No posts available</p>
+                )}
+              </div>
+            </div>{" "}
           </div>
         </div>
       ) : (

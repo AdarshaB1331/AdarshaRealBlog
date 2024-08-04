@@ -46,7 +46,7 @@ const Home = () => {
           {postss.length > 0 ? (
             postss.map((post) => <HalfCard key={post._id} post={post} />)
           ) : (
-            <h1>No posts....</h1>
+            <h1 style={{ textAlign: "center" }}>No posts....</h1>
           )}
         </div>
       </div>
