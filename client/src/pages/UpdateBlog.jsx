@@ -78,7 +78,7 @@ const UpdateBlog = () => {
       }
 
       const res = await fetch(
-        "http://localhost:5000/api/products/post/update",
+        "https://adarsharealblog.onrender.com/api/products/post/update",
         {
           method: "PATCH",
           body: JSON.stringify({
