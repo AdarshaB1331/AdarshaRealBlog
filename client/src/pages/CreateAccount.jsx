@@ -25,7 +25,7 @@ const CreateAccount = () => {
     setDisableButton(true);
     try {
       const res = await fetch(
-        "http://localhost:5000/api/users/create-account",
+        "https://adarsharealblog.onrender.com/api/users/create-account",
         {
           method: "POST",
           body: JSON.stringify({ name, email, password }),
