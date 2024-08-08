@@ -17,7 +17,7 @@ const Home = () => {
 
       // Make the request to the server with the Authorization header
       const res = await fetch(
-        "http://localhost:5000/api/products/posts/getPosts",
+        "https://adarsharealblog.onrender.com/api/products/posts/getPosts",
         {
           headers: {
             "Content-Type": "application/json",
