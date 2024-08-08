@@ -30,7 +30,7 @@ const FullCard = () => {
     }
     try {
       const res = await fetch(
-        "http://localhost:5000/api/products/post/delete",
+        "https://adarsharealblog.onrender.com/api/products/post/delete",
         {
           method: "DELETE",
           body: JSON.stringify({
