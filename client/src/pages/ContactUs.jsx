@@ -32,7 +32,7 @@ const ContactUs = () => {
     }
     try {
       const res = await fetch(
-        "http://localhost:5000/api/products/posts/message",
+        "https://adarsharealblog.onrender.com/api/products/posts/message",
         {
           method: "POST",
           body: JSON.stringify({ name, email, phoneNumber, message }),
