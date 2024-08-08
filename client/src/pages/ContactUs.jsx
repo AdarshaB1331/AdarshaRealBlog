@@ -8,6 +8,7 @@ const ContactUs = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
   const navigate = useNavigate();
   const onName = (e) => {
     setName(e.target.value);
@@ -24,6 +25,7 @@ const ContactUs = () => {
     setMessage(e.target.value);
   };
   const createMessage = async () => {
+    setDisableButton(true);
     const token = sessionStorage.getItem("User");
     if (!token) {
       toast.error("You need to log in to send the message.....");
@@ -47,7 +49,8 @@ const ContactUs = () => {
           navigate("/");
         }, 2000);
       } else {
-        const errorData = await res.json();
+        toast.error("error while sending the message");
+        setDisableButton(false);
       }
     } catch (error) {
       console.error("Error sending the message", error);
@@ -172,6 +175,7 @@ const ContactUs = () => {
                     <div className="col-12">
                       <div className="d-grid">
                         <button
+                          disabled={disableButton}
                           className="btn btn-primary btn-lg"
                           type="submit"
                           onClick={onSubmit}

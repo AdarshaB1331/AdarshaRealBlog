@@ -4,14 +4,42 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { storage } from "../firebase"; // Import Firebase Storage
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Import Firebase Storage methods
-
-const CreateBlog = () => {
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { jwtDecode } from "jwt-decode"; // Keeping your impo
+const UpdateBlog = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState(null); // State for image
+  const token = sessionStorage.getItem("User");
+  const allPosts = useSelector((store) => store.posts);
   const [disableButton, setDisableButton] = useState(false);
+  let decoded = {};
+  if (token) {
+    try {
+      decoded = jwtDecode(token);
+    } catch (error) {
+      console.error("Failed to decode token:", error);
+    }
+  }
+
+  let userPost = [];
+  let postToBeUpdated;
+  if (Array.isArray(allPosts)) {
+    userPost = allPosts.filter((post) => post.author === decoded._id);
+    postToBeUpdated = userPost.find((posts) => posts._id === id);
+  }
+
+  const [title, setTitle] = useState(
+    (postToBeUpdated && postToBeUpdated.title) || ""
+  );
+  const [description, setDescription] = useState(
+    (postToBeUpdated && postToBeUpdated.description) || ""
+  );
+  const [content, setContent] = useState(
+    (postToBeUpdated && postToBeUpdated.content) || ""
+  );
+  const [image, setImage] = useState(null); // State for image
+
   const onTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -30,7 +58,7 @@ const CreateBlog = () => {
     }
   };
 
-  const createBlog = async () => {
+  const updateBlog = async () => {
     setDisableButton(true);
     const token = sessionStorage.getItem("User");
     if (!title || !description || !content || !image) {
@@ -49,23 +77,26 @@ const CreateBlog = () => {
         imageUrl = await getDownloadURL(imageRef);
       }
 
-      const res = await fetch("http://localhost:5000/api/products/posts/post", {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          description,
-          content,
-          image: imageUrl,
-          dateJoined: Date.now(),
-        }), // Include image URL in the request
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        "http://localhost:5000/api/products/post/update",
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            id: id,
+            title,
+            description,
+            content,
+            image: imageUrl,
+          }), // Include image URL in the request
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.ok) {
-        toast.success("Blog created successfully");
+        toast.success("Blog updated successfully");
         setTimeout(() => {
           navigate("/");
         }, 2000);
@@ -74,18 +105,18 @@ const CreateBlog = () => {
         setDisableButton(false);
         // Redirect to login or handle unauthorized error
       } else {
-        toast.error("Failed to create blog");
+        toast.error("Failed to update blog");
         setDisableButton(false);
       }
     } catch (error) {
       console.error("Error creating blog:", error);
-      toast.error("Failed to create blog");
+      toast.error("Failed to update blog");
     }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createBlog();
+    updateBlog();
   };
 
   return (
@@ -93,7 +124,7 @@ const CreateBlog = () => {
       <div className="container">
         <div className="row justify-content-md-center">
           <div className="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
-            <h2 className="mb-4 display-5 text-center">Create a Blog</h2>
+            <h2 className="mb-4 display-5 text-center">Update your Blog</h2>
             <hr className="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle" />
           </div>
         </div>
@@ -178,4 +209,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default UpdateBlog;

@@ -65,6 +65,9 @@ const HalfCard = ({ post }) => {
               </h2>
             </div>
             <p className="card-text entry-summary text-secondary m-0 p-0">
+              Posted By: {post.authorName}
+            </p>
+            <p className="card-text entry-summary text-secondary m-0 p-0">
               {post.description}
             </p>
           </div>

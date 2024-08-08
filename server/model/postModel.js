@@ -13,6 +13,7 @@ const postSchema = new mongoose.Schema({
     default: "4th June 2004",
   },
   author: String,
+  authorName: String,
 });
 
 const Posts = mongoose.model("BlogPosts", postSchema);

@@ -37,7 +37,7 @@ export const logIn = async (req, res) => {
       const confirmation = await bcrypt.compare(password, emailExists.password);
       if (confirmation) {
         const token = jwt.sign(emailExists.toObject(), process.env.SECRET_KEY, {
-          expiresIn: "1h",
+          expiresIn: "24hr",
         });
         res.status(200).json(token);
       } else {

@@ -10,6 +10,7 @@ import ContactUs from "./pages/ContactUs";
 import CreateAccount from "./pages/CreateAccount";
 import Login from "./pages/Login";
 import FullDetails from "./pages/FullDetails";
+import UpdateBlog from "./pages/UpdateBlog";
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
           <Route path="/create-account" element={<CreateAccount />} />
           <Route path="/login" element={<Login />} />
           <Route path="/post/:id" element={<FullDetails />} />
+          <Route path="/post/update/:id" element={<UpdateBlog />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -8,7 +8,7 @@ const CreateAccount = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [disableButton, setDisableButton] = useState(false);
   const onName = (e) => {
     setName(e.target.value);
   };
@@ -22,6 +22,7 @@ const CreateAccount = () => {
   };
 
   const createAccount = async () => {
+    setDisableButton(true);
     try {
       const res = await fetch(
         "http://localhost:5000/api/users/create-account",
@@ -40,8 +41,10 @@ const CreateAccount = () => {
           navigate("/");
         }, 2000);
       } else if (res.status === 409) {
+        setDisableButton(false);
         toast.error("Account with this Email already exists");
       } else {
+        setDisableButton(false);
         const errorData = await res.json();
         toast.error(errorData.message || "Error creating account");
       }
@@ -110,7 +113,11 @@ const CreateAccount = () => {
               required
               style={{ marginBottom: "30px" }}
             />
-            <button className="btn btn-lg btn-primary btn-block" type="submit">
+            <button
+              disabled={disableButton}
+              className="btn btn-lg btn-primary btn-block"
+              type="submit"
+            >
               Create Account
             </button>
             <p className="mt-5 mb-3 text-muted">© 2024</p>
